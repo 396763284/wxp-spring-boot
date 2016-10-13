@@ -1,14 +1,44 @@
 <h3>Task-1
-    <h1 [style.color]="color">Hello,Angular2</h1>
+    <h3 [style.color]="color">Hello,Angular2</h3>
     <br>
     {{title}}
     ---{{country}}
 </h3>
 <br>
-列表
+<h3>列表</h3>
 <br>
 <ul>
     <li *ngFor="let hero of heroes">
         {{ hero.name }}
     </li>
+</ul>
+<br>
+<h3>判断</h3>
+<p *ngIf="heroes.length>3">
+    heroes length >3
+</p>---<p *ngIf="heroes.length<3">
+    heroes length <3
+</p>
+<h3>User input</h3>
+<button type="button" name="button" (click)="onClickMe()">Click me</button>
+<p>
+    {{clickMessage}}
+</p>
+
+<br>
+<input (keyup)="onKey($event)">
+<p>
+    {{values}}
+</p>---
+<input #box (keyup)="0">
+<p>{{box.value}}</p>
+--use Enter
+<input #box_enter (keyup.enter)="keyup_value=box_enter.value">
+<p>
+    {{keyup_value}}
+</p>
+--addPeople<input #newPeople (key.enter)="addPeople(newPeople.value)" (blur)="addPeople(newPeople.value); newPeople.value=''">
+<button (click)=addPeople(newPeople.value)>Add</button>
+<ul>
+    <li *ngFor="let people of peoples">{{people}}</li>
 </ul>
