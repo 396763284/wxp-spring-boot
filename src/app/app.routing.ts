@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { Task1Component } from './task-1/task1.component';
 import { Task3Component } from './task-3/task3.component';
+import {HerosComponent} from './heros/heros.component';
 
 const routes: Routes = [
 
@@ -17,7 +18,8 @@ const routes: Routes = [
             )
     },
 
-    { path: 'task3', component: Task3Component }
+    { path: 'task3', component: Task3Component },
+    { path: 'heros', component: HerosComponent }
 ];
 
 export const routing = [
