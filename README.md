@@ -1,5 +1,3 @@
-# angular2Demo
-some sample demos which follows the Angular2 tutorial
+#update project 
 
-step 1: npm install
-step 2: npm start
+some my spring boot project 
