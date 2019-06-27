@@ -1,0 +1,13 @@
+server:
+  port: 8001
+dubbo:
+  application:
+    name: wxp-consumer
+  registry:
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+  protocol:
+    name: dubbo
+    port: 20880
+
+
