@@ -2,6 +2,7 @@ server:
   port: 8002
 
 
+
 dubbo:
   application:
     name: wxp-provider
@@ -11,4 +12,16 @@ dubbo:
   protocol:
     name: dubbo
     port: 20880
+mybatis:
+  mapper-locations: /mapping/*.xml
+spring:
+  datasource:
+    name: hive
+    password: hive
+    url: jdbc:hive2://localhost:10000/default
+    driver-class-name: org.apache.hive.jdbc.HiveDriver
+
+
+
+
 
