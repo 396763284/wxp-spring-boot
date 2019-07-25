@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="per.wxp.wxpsys.mapper.PermissionMapper" >
+
+
+      <select id="qryPermissionByUser" resultType="Map" parameterType="Map">
+          SELECT
+          c.`role_id`,
+          c.`role_name` ,
+          c.`role_code` ,
+          a.`permission_id`,
+          a.`pid`,
+          a.`name`,
+          a.`path`,
+          a.`import_path`,
+          a.`title`,
+          a.`icon`,
+          a.type,
+          a.perm_code
+          FROM sys_permission a , sys_role_permission b , sys_user_role d , sys_user e ,sys_role c
+          WHERE a.`PERMISSION_ID`=b.`PERMISSION_ID`
+          AND c.`ROLE_ID`= b.`ROLE_ID`
+          AND d.`ROLE_ID`=b.`ROLE_ID`
+          AND d.`USER_ID`=e.`user_id`
+
+          <if test="user_code != null" >
+          AND  e.`user_code`= #{user_code}
+          </if>
+          <if test="user_id != null" >
+              AND  e.`user_id`= #{user_id}
+          </if>
+      </select>
+
+    <select id="qryPermsByUser" resultType="Map" parameterType="Map">
+        SELECT   DISTINCT
+        a.`permission_id`,
+        a.`pid`,
+        a.`name`,
+        a.`path`,
+        a.`import_path`,
+        a.`title`,
+        a.`icon`,
+        a.type,
+        a.perm_code
+        FROM sys_permission a , sys_role_permission b , sys_user_role d , sys_user e
+        WHERE a.`PERMISSION_ID`=b.`PERMISSION_ID`
+        AND d.`ROLE_ID`=b.`ROLE_ID`
+        AND d.`USER_ID`=e.`user_id`
+        <if test="user_code != null" >
+            AND  e.`user_code`= #{user_code}
+        </if>
+        <if test="user_id != null" >
+            AND  e.`user_id`= #{user_id}
+        </if>
+    </select>
+
+
+
+
+
+</mapper>

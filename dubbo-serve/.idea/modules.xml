@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/dubbo-serve.iml" filepath="$PROJECT_DIR$/dubbo-serve.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wxp-api/wxp-api.iml" filepath="$PROJECT_DIR$/wxp-api/wxp-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wxp-common/wxp-common.iml" filepath="$PROJECT_DIR$/wxp-common/wxp-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wxp-sys/wxp-sys.iml" filepath="$PROJECT_DIR$/wxp-sys/wxp-sys.iml" />
+    </modules>
+  </component>
+</project>

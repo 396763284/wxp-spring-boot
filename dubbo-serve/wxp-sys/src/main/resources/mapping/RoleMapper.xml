@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="per.wxp.wxpsys.mapper.RoleMapper">
+
+
+	<sql id="roleCols">
+
+	</sql>
+
+	<!-- 通过UserId得到对应的role -->
+	<select id="findRolesByUid" resultType="String">
+		select `role_code` from
+		sys_role where role_id in (select role_id from sys_user_role where user_id =
+		#{id})
+	</select>
+
+	<!-- 通过UserCode得到对应的role -->
+	<select id="findRolesByUcode" resultType="Map" parameterType="Map">
+		SELECT  a.`role_code` ,a.`role_name`
+		FROM sys_role a ,  sys_user_role b, sys_user c
+		WHERE  a.`ROLE_ID`=b.`ROLE_ID`
+		AND b.`USER_ID`=c.`user_id`
+		AND c.`user_code`= #{user_code}
+	</select>
+
+	<select id="getRoleList" resultType="Map" parameterType="Map">
+		select * from
+		sys_role
+		where 1=1
+		<if test="state != null and state != ''">
+			state= #{state}
+		</if>
+ 	</select>
+	<select id="getRoleTotal" resultType="Int" parameterType="Map">
+		select
+		count(*)
+		from sys_role
+	</select>
+
+
+
+
+</mapper>

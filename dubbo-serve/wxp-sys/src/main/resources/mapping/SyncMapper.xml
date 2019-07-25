@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="per.wxp.wxpsys.mapper.SyncMapper" >
+
+
+  <sql id="taskCols">
+    `sync_name`,
+      `from_db_id`,
+      `to_db_id`,
+      `con_sql`,
+      `pre_sql`,
+      `status_CD`,
+      `sync_desc`,
+      `user_tel`,
+      `sync_type`,
+      `sync_date`,
+      `from_table_name`,
+      `to_table_name`
+  </sql>
+
+  <sql id="dbsCols">
+
+  `db_name`,
+  `db_ip`,
+  `db_username`,
+  `db_password`,
+  `db_type`
+  </sql>
+
+  <select id="getSyncTasks" resultType="Map" parameterType="Map">
+    select
+    *
+    from sync_data_task
+  </select>
+
+  <select id="getSyncTasksTotal" resultType="Int" parameterType="Map">
+    select
+    count(*)
+    from sync_data_task
+  </select>
+
+  <select id="getSyncDataSources" resultType="Map" parameterType="Map">
+    select
+      `db_id`,
+      <include refid="dbsCols" ></include>
+    from SYNC_DATA_SOURCE
+    <if test="db_name != null and  db_name !='' " >
+      where  db_name = #{db_name}
+    </if>
+  </select>
+
+  <insert id="insertSyncDataSources" parameterType="Map">
+    INSERT INTO `sync_data_source` (
+     <include refid="dbsCols" ></include>
+    )
+    VALUES
+      (
+        #{db_name},
+        #{db_ip},
+        #{db_username},
+        #{db_password},
+        #{db_type}
+      )
+  </insert>
+
+  <update id="updateSyncDataSources" parameterType="Map">
+    UPDATE
+      sync_data_source
+    SET
+    `db_name` = #{db_name},
+    `db_ip` = #{db_ip}
+    `db_username` = #{db_username},
+    `db_password` = #{db_password},
+    `db_type` = #{db_type}
+    WHERE `db_id` = #{db_id}
+  </update>
+  <delete id="delSyncDataSources" parameterType="Map">
+    DELETE
+    FROM
+      `sync_data_source`
+    WHERE `db_id` =#{db_id}
+  </delete>
+</mapper>

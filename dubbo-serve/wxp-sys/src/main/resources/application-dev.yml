@@ -1,0 +1,30 @@
+server:
+  port: 8082
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spbt
+    username: root
+    password: 123456
+
+dubbo:
+  application:
+    name: wxp-sys
+  registry:
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+    register: true
+    group: dubbo
+  protocol:
+    name: dubbo
+    port: 20880
+  monitor:
+    protocol: registry
+
+
+mybatis:
+  mapper-locations: classpath:/mapping/*.xml
+
+logging.level.org.springframework.security: DEBUG

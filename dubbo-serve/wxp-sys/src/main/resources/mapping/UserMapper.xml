@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="per.wxp.wxpsys.mapper.UserMapper" >
+
+  <select id="findUserByParams" parameterType="Map" resultType="Map" >
+    select
+    `user_id`,
+    password,
+    `user_name`,
+    `user_code`,
+    `email`,
+    `create_time`,
+    `latn_id`,
+    `org_code`
+    from sys_user
+    <where>
+      1=1
+      <if test="user_code != null" >
+       and user_code = #{user_code}
+      </if>
+      <if test="user_id != null" >
+       and user_id = #{user_id}
+      </if>
+    </where>
+  </select>
+
+  <select id="getuserTotal" resultType="Int" parameterType="Map">
+    select
+    count(*)
+    from sys_user
+  </select>
+
+  <select id="getUserList" resultType="Map" parameterType="Map">
+    select
+    *
+    from sys_user
+  </select>
+
+  <select id="getUserRoleList" resultType="Map" parameterType="Map">
+    select
+    a.*
+    from sys_role a ,sys_user_role b
+    where a.role_id=b.role_id
+    and a.state= '1000'
+    <if test="user_id !=null and user_id != '' ">
+      and b.user_id = #{user_id}
+    </if>
+  </select>
+
+  <insert id="insertUser" parameterType="Map" useGeneratedKeys="true" keyColumn="user_id" keyProperty="user_id" >
+    INSERT INTO `sys_user` (
+    `user_name`,
+    `user_code`,
+    `password`,
+    `moble_tel`,
+    `state`,
+    `create_time`
+    )
+    VALUES
+    (
+     #{user_name},
+     #{user_code},
+     #{password},
+     #{moble_tel},
+     #{state},
+     now()
+    )
+    <selectKey resultType="int" keyProperty="user_id" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+
+  <insert id="insertUserRole" parameterType="Map">
+    INSERT INTO sys_user_role(user_id,role_id)
+    VALUES
+    <foreach collection="roles" item="item" separator=",">
+      (#{user_id},#{item})
+    </foreach>
+  </insert>
+
+  <delete id="deleteUserRole" parameterType="Map">
+   delete from sys_user_role where user_id = #{user_id}
+  </delete>
+
+</mapper>
